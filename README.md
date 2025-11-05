@@ -51,6 +51,9 @@ Inside the `result/` folder you will see:
 
 ## Tip
 
-You can automate the installation of required tools first, then run the script for fast recon.
+install tools 1. assetfinder - https://github.com/tomnomnom/assetfinder
+              2. alterx - https://github.com/projectdiscovery/alterx
+              3. subfinder - https://github.com/projectdiscovery/subfinder
+              4. httpx - https://github.com/projectdiscovery/httpx
 
 ## If you find any error please report it. 
