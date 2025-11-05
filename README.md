@@ -56,4 +56,3 @@ install tools 1. assetfinder - https://github.com/tomnomnom/assetfinder
               3. subfinder - https://github.com/projectdiscovery/subfinder
               4. httpx - https://github.com/projectdiscovery/httpx
 
-## If you find any error please report it. 
