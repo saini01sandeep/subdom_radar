@@ -18,10 +18,6 @@
 
 # total_live_subdomN.txt (httpx pipeline result)
 
-#
-
-# This version avoids line-continuation problems and won't print tool output to terminal.
-
 set -u
 
 OUTDIR="result"
@@ -58,7 +54,7 @@ LIVE="$OUTDIR/total_live_subdom${N}.txt"
 
 echo "[*] Running scan #$N for $TARGET"
 
-# Run assetfinder (stderr discarded, stdout -> file)
+# Run assetfinder 
 
 if command -v assetfinder >/dev/null 2>&1; then
 echo "$TARGET" | assetfinder > "$F1" 2>/dev/null || :
@@ -74,7 +70,7 @@ else
 : > "$F2"
 fi
 
-# Run subfinder
+# Run subfinder.
 
 if command -v subfinder >/dev/null 2>&1; then
 echo "$TARGET" | subfinder > "$F3" 2>/dev/null || :
@@ -82,11 +78,11 @@ else
 : > "$F3"
 fi
 
-# Merge + dedupe (single-line pipeline to avoid continuation quirks)
+# Merge + dedupe .
 
 cat "$F1" "$F2" "$F3" 2>/dev/null | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sort -u > "$TOTAL" || :
 
-# Decide httpx input: prefer total_target.txt in current dir, otherwise use generated TOTAL
+# Decide httpx input: total_target.txt
 
 if [ -f "total_target.txt" ]; then
 HTTPX_INPUT="total_target.txt"
@@ -94,7 +90,7 @@ else
 HTTPX_INPUT="$TOTAL"
 fi
 
-# Run httpx pipeline and produce hostnames only
+# Run httpx.
 
 if command -v httpx >/dev/null 2>&1; then
 httpx -l "$HTTPX_INPUT" -silent 2>/dev/null | sed -E 's~https?://~~' | sed 's:/.*$::' | sort -u > "$LIVE" || :
@@ -102,7 +98,7 @@ else
 : > "$LIVE"
 fi
 
-# Remove any unexpected *.err.log files inside OUTDIR (just in case)
+# Remove any unexpected *.err.log files inside OUTDIR, if available.
 
 find "$OUTDIR" -maxdepth 1 -type f -name "*.err.log" -delete
 
